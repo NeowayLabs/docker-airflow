@@ -14,7 +14,7 @@ This is a fork of
 
 ## Informations
 
-* Based on Python (3.6-stretch) official Image [python:3.6-stretch](https://hub.docker.com/_/python/) and uses the official [Postgres](https://hub.docker.com/_/postgres/) as backend and [Redis](https://hub.docker.com/_/redis/) as queue
+* Based on Python (3.6-slim) official Image [python:3.6-slim](https://hub.docker.com/_/python/) and uses the official [Postgres](https://hub.docker.com/_/postgres/) as backend and [Redis](https://hub.docker.com/_/redis/) as queue
 * Install [Docker](https://www.docker.com/)
 * Install [Docker Compose](https://docs.docker.com/compose/install/)
 * Following the Airflow release from [Python Package Index](https://pypi.python.org/pypi/apache-airflow)
@@ -66,7 +66,13 @@ For encrypted connection passwords (in Local or Celery Executor), you must have 
 
         python -c "from cryptography.fernet import Fernet; FERNET_KEY = Fernet.generate_key().decode(); print FERNET_KEY"
 
-Check [Airflow Documentation](https://pythonhosted.org/airflow/)
+## Configurating Airflow
+
+It is possible to set any configuration value for Airflow from environment variables, which are used over values from the airflow.cfg. The general rule is the environment variable should be named `AIRFLOW__<section>__<key>`, for example `AIRFLOW__CORE__SQL_ALCHEMY_CONN` sets the `sql_alchemy_conn` config option in the `[core]` section.
+
+Check out the [Airflow documentation](http://airflow.readthedocs.io/en/latest/configuration.html?highlight=__CORE__#setting-configuration-options) for more details
+
+You can also define connections via environment variables by prefixing them with `AIRFLOW_CONN_` - for example `AIRFLOW_CONN_POSTGRES_MASTER=postgres://user:password@localhost:5432/master` for a connection called "postgres_master". The value is parsed as a URI. This will work for hooks etc, but won't show up in the "Ad-hoc Query" section unless an (empty) connection is also created in the DB
 
 
 ## Install custom python package
@@ -88,6 +94,21 @@ Easy scaling using docker-compose:
         docker-compose scale worker=5
 
 This can be used to scale to a multi node setup using docker swarm.
+
+## Running other airflow commands
+
+If you want to run other airflow sub-commands, such as `list_dags` or `clear` you can do so like this:
+
+        docker run --rm -ti puckel/docker-airflow airflow list_dags
+
+or with your docker-compose set up like this:
+
+        docker-compose -f docker-compose-CeleryExecutor.yml run --rm webserver airflow list_dags
+
+You can also use this to run a bash shell or any other command in the same environment that airflow would be run in:
+
+          docker run --rm -ti puckel/docker-airflow bash
+          docker run --rm -ti puckel/docker-airflow ipython
 
 # Wanna help?
 
