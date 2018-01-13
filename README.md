@@ -3,14 +3,10 @@
 
 [![Docker Hub](https://img.shields.io/badge/docker-ready-blue.svg)](https://hub.docker.com/r/neowaylabs/docker-airflow/)
 
-This repository contains **Dockerfile** of
-[apache-airflow](https://github.com/apache/incubator-airflow) for
-[Docker](https://www.docker.com/)'s
-[automated build](https://hub.docker.com/r/neowaylabs/docker-airflow/) published to the public
-[Docker Hub Registry](https://registry.hub.docker.com/).
+This repository contains **Dockerfile** of [apache-airflow](https://github.com/apache/incubator-airflow) for [Docker](https://www.docker.com/)'s
+[automated build](https://hub.docker.com/r/neowaylabs/docker-airflow/) published to the public [Docker Hub Registry](https://registry.hub.docker.com/).
 
-This is a fork of
-[puckel/docker-airflow](https://github.com/puckel/docker-airflow).
+This is a fork of [puckel/docker-airflow](https://github.com/puckel/docker-airflow).
 
 ## Informations
 
