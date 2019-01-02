@@ -1,12 +1,12 @@
 # docker-airflow
-[![Docker Build Status](https://img.shields.io/docker/build/neowaylabs/docker-airflow.svg)]()
+[![CircleCI branch](https://img.shields.io/circleci/project/puckel/docker-airflow/master.svg?maxAge=2592000)](https://circleci.com/gh/puckel/docker-airflow/tree/master)
+[![Docker Build Status](https://img.shields.io/docker/build/puckel/docker-airflow.svg)]()
 
-[![Docker Hub](https://img.shields.io/badge/docker-ready-blue.svg)](https://hub.docker.com/r/neowaylabs/docker-airflow/)
+[![Docker Hub](https://img.shields.io/badge/docker-ready-blue.svg)](https://hub.docker.com/r/puckel/docker-airflow/)
+[![Docker Pulls](https://img.shields.io/docker/pulls/puckel/docker-airflow.svg)]()
+[![Docker Stars](https://img.shields.io/docker/stars/puckel/docker-airflow.svg)]()
 
-This repository contains **Dockerfile** of [apache-airflow](https://github.com/apache/incubator-airflow) for [Docker](https://www.docker.com/)'s
-[automated build](https://hub.docker.com/r/neowaylabs/docker-airflow/) published to the public [Docker Hub Registry](https://registry.hub.docker.com/).
-
-This is a fork of [puckel/docker-airflow](https://github.com/puckel/docker-airflow).
+This repository contains **Dockerfile** of [apache-airflow](https://github.com/apache/incubator-airflow) for [Docker](https://www.docker.com/)'s [automated build](https://registry.hub.docker.com/u/puckel/docker-airflow/) published to the public [Docker Hub Registry](https://registry.hub.docker.com/).
 
 ## Informations
 
@@ -23,9 +23,14 @@ Pull the image from the Docker repository.
 
 ## Build
 
-For example, if you need to install [Extra Packages](https://airflow.incubator.apache.org/installation.html#extra-package), edit the Dockerfile and then build it.
+Optionally install [Extra Airflow Packages](https://airflow.incubator.apache.org/installation.html#extra-package) and/or python dependencies at build time :
 
-    docker build --rm -t puckel/docker-airflow .
+    docker build --rm --build-arg AIRFLOW_DEPS="datadog,dask" -t puckel/docker-airflow .
+    docker build --rm --build-arg PYTHON_DEPS="flask_oauthlib>=0.9" -t puckel/docker-airflow .
+
+or combined
+
+    docker build --rm --build-arg AIRFLOW_DEPS="datadog,dask" --build-arg PYTHON_DEPS="flask_oauthlib>=0.9" -t puckel/docker-airflow .
 
 Don't forget to update the airflow images in the docker-compose files to puckel/docker-airflow:latest.
 
